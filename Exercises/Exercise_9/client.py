@@ -2,7 +2,7 @@
 #  Exercise 9: Scripting languages
 #  Part 2: Client side scripting
 #  Programming Languages 2
-#  Michael Beyer
+#  Michael Beyer / Giacomo Bossi ;)
 #
 
 from selenium import webdriver
@@ -13,44 +13,27 @@ serverAddress = "https://courses.softlab.ntua.gr/pl2/2018b/exercises/palseq.php"
 serverAddress2 = "http://localhost:3000/pl2/longestPal"
 
 
+
+
 def longestPalSubstr(string):
-    maxLength = 1
+    n = len(string)
 
-    start = 0
-    length = len(string)
+    L = [[0 for x in range(n)]for y in range(n)] 
 
-    low = 0
-    high = 0
+    for i in range(n): 
+        L[i][i] = 1
 
-    # One by one consider every character as center point of
-    # even and length palindromes
-    for i in xrange(1, length):
-        # Find the longest even length palindrome with center
-    # points as i-1 and i.
-        low = i - 1
-        high = i
-        while low >= 0 and high < length and string[low] == string[high]:
-            if high - low + 1 > maxLength:
-                start = low
-                maxLength = high - low + 1
-            low -= 1
-            high += 1
+    for cl in range( 2, n+1): 
+        for i in range(n - cl + 1): 
+            j = i + cl - 1
+            if (string[i] == string[j] and cl == 2): 
+                L[i][j] = 2
+            elif (string[i] == string[j]): 
+                L[i][j] = L[i + 1][j - 1] + 2
+            else: 
+                L[i][j] = max(L[i][j - 1],L[i + 1][j]) 
 
-        # Find the longest odd length palindrome with center
-        # point as i
-        low = i - 1
-        high = i + 1
-        while low >= 0 and high < length and string[low] == string[high]:
-            if high - low + 1 > maxLength:
-                start = low
-                maxLength = high - low + 1
-            low -= 1
-            high += 1
-
-    #print "Longest palindrome substring is:",
-    #print string[start:start + maxLength]
-
-    return maxLength
+    return (L[0][n - 1])
 
 
 def play():
@@ -70,7 +53,8 @@ def play():
 
 # Setup
 chrome_options = Options()
-chrome_options.add_argument("--headless")
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
 
 driver = webdriver.Chrome( chrome_options=chrome_options )
 driver.get( serverAddress )
