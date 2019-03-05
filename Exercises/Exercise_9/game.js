@@ -2,7 +2,7 @@
 //  Exercise 9: Scripting languages
 //  Part 1: Server side scripting
 //  Programming Languages 2
-//  Michael Beyer
+//  Michael Beyer / Giacomo Bossi
 //
 
 var pal = require('./palindromeCheck')
@@ -47,7 +47,7 @@ function checkAnswer( answer )
   let currentPal = questions[currentLevel];
   let res = pal.getLongest( currentPal );
 
-  if( ( currentPal.length - answer == res.length ) && answer != '' )
+  if( ( currentPal.length - answer == res) && answer != '' )
   {
     currentLevel++;
     return 'answerCorrect';

@@ -2,7 +2,7 @@
 #  Exercise 9: Scripting languages
 #  Part 2: Client side scripting
 #  Programming Languages 2
-#  Michael Beyer / Giacomo Bossi ;)
+#  Michael Beyer / Giacomo Bossi 
 #
 
 from selenium import webdriver
@@ -10,7 +10,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
 serverAddress = "https://courses.softlab.ntua.gr/pl2/2018b/exercises/palseq.php"
-serverAddress2 = "http://localhost:3000/pl2/longestPal"
+serverAddress2 = "http://localhost:3000"
 
 
 
@@ -57,7 +57,7 @@ chrome_options.add_argument('--headless')
 chrome_options.add_argument('--no-sandbox')
 
 driver = webdriver.Chrome( chrome_options=chrome_options )
-driver.get( serverAddress )
+driver.get( serverAddress2 )
 
 count = 0
 while count < 10:
