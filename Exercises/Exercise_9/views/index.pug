@@ -2,7 +2,7 @@
 //  Exercise 9: Scripting languages
 //  Part 1: Server side scripting
 //  Programming Languages 2
-//  Michael Beyer
+//  Michael Beyer, Giacomo Bossi
 //
 
 doctype html
@@ -21,25 +21,28 @@ html(lang="en")
       Find the <span class="emph">least</span> possible number of letters that,
       if removed from the given string, what remains is a
       <span class="emph">palindrome</span>.
-
-
-
+      
     p.
       <span class="question">Question #{questionNr}</span>:
-      length #{questionLength}  <code class="block" id="question">#{question}</code>
+      length #{questionLength} <code class="block" id="question">#{question}</code>
 
     //- add form elements based on current state
-    case state
+    case answerState
           
-      when 'answerCorrect'
+      when 'correct'
         p(class="right") Right!  :-)
         form(action="/pl2/longestPal" id="r" name="r" method="post")
-          input(class="button" type="submit" name="again" id="again" value="Continue!" autofocus )
+          input(class="button" type="submit" name="again" id="again" value="Continue!" autofocus)
 
-      when 'answerWrong'
+      when 'wrong'
         p(class="wrong") Wrong!  Try again...  :-(
         form(action="/pl2/longestPal" id="r" name="r" method="post")
           input(class="button" type="submit" name="again" id="again" value="Continue!" autofocus)
+            
+      when 'restart'
+        p(class="right") Right!  :-)
+        form(action="/pl2/longestPal" id="r" name="r" method="post")
+          input(class="button" type="submit" name="restart" id="restart" value="Restart Game!" autofocus)
             
       default
         form(action="/pl2/longestPal" id="f" name="f" method="post")

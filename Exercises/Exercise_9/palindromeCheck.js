@@ -2,16 +2,14 @@
 //  Exercise 9: Scripting languages
 //  Part 1: Server side scripting
 //  Programming Languages 2
-//  Michael Beyer / Giacomo Bossi
+//  Michael Beyer, Giacomo Bossi
 //
-
 
 function longestPalSubstr(str)
 {
     var length = str.length;
     var string = str.split('');
     let L = Array(length).fill().map(() => Array(length).fill(0));
-
 
     for(var i = 0; i<length; i++)
     {
@@ -27,13 +25,12 @@ function longestPalSubstr(str)
           L[i][j] = 2
         else if (string[i] == string[j])
           L[i][j] = L[i + 1][j - 1] + 2
-        else 
-          L[i][j] = Math.max(L[i][j - 1],L[i + 1][j]) 
+        else
+          L[i][j] = Math.max(L[i][j - 1],L[i + 1][j])
       }
     }
 
     return (L[0][length - 1]);
 }
-
 
 module.exports.getLongest = longestPalSubstr;
