@@ -1,8 +1,14 @@
+--
+--  Exercise 1: Count palindromic subsequences in Haskell
+--  Programming Languages 2 
+--  Michael Beyer, Giacomo Bossi
+--
+
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Char8 as BC
 import qualified Data.Sequence as S
 
-
+-- first version using seq and dropping chars
 main = do
   chars <- getLine
   string <- getLine
@@ -11,23 +17,13 @@ main = do
 
   print $ numOfPalinSubSeq numOfChars string
 
---with drop and infinite lists init
 numOfPalinSubSeq n s = aux (take (n+1) (cycle[0])) (take (n) (cycle[1])) s (Prelude.drop 1 s) n
     where aux l2 l1 s g n
            | n == 2 = inner l2 l1 s g n 
            | otherwise = seq q (aux l1 q s (Prelude.drop 1 g) (n-1))
            where q = (inner l2 l1 s g n)
 
--- same as above, but without seq
--- with drop and infinite lists init
---numOfPalinSubSeq n s = aux [0,0..] [1,1..] s (drop 1 s) n
---  where aux l2 l1 s g n
---            | n == 2 = inner2 l2 l1 s g n 
---            | otherwise = aux l1 lnew s (drop 1 g) (n-1)
---            where lnew = inner2 l2 l1 s g n
-
--- using seq
--- l1: first row, l2: second row, s: complete string, g: gap, n: len s
+-- l1: first row, l2: second row, s: complete string, g: gap, n: len string
 inner :: [Int] -> [Int] -> String -> String -> Int -> [Int]
 inner l2 l1 s g n
     | n == 1 = []
@@ -37,11 +33,7 @@ inner l2 l1 s g n
           notEqual' = ( 1 + (head l1) + head (Prelude.drop 1 l1) ) `mod` 20130401
 
 
-
-
-
-
-
+-- second version with map and without 'seq'
 main2 = do
     len <- getLine
     str <- getLine
